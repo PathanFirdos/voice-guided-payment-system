@@ -1,0 +1,35 @@
+hf_cache/
+venv/
+.venv/
+
+# Vosk voice models
+src/voice_auth/vosk-model-en-us-0.22/
+
+src/voice_auth/vosk-model-en-us-0.22/
+
+data/
+models/
+enrolled_faces/
+test_model/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Runtime databases and logs
+*.db
+*.log
+
+# Voice model components and weights
+src/voice_auth/.sb_cache/
+src/voice_auth/pretrained_models/
+src/voice_auth/vosk-model*/
+src/voice_auth/vosk-model.zip
+
+# User profile enrollments and recordings
+src/voice_auth/enrolled_voices/
+src/voice_auth/test.wav
+src/face_auth/encodings.pkl
+
+# Evaluation plots and training results
+src/currency_recognition/currency_recognition/train_results/

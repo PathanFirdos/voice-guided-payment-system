@@ -1,0 +1,7 @@
+tensorflow==2.12.0
+keras-facenet==0.3.2
+mtcnn==0.1.1
+opencv-python
+numpy
+scikit-learn
+pickle-mixin
