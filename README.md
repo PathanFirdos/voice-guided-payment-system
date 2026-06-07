@@ -219,8 +219,6 @@ python check_db.py
 
 - Razorpay runs in **Test Mode** — no real money is transferred
 - Currency recognition trained on limited dataset — may need retraining for production
-- Face authentication requires good lighting conditions
-- Voice recognition accuracy depends on microphone quality and accent
 
 ---
 
