@@ -289,6 +289,33 @@ with tab1:
                         </div>
                     </div>""", unsafe_allow_html=True)
 
+                # ── gTTS Audio Output ─────────────────────────────────────
+                if denomination == "Background":
+                    voice_text = "No currency note detected. Please upload a clear photo of a note."
+                else:
+                    voice_text = (f"{denomination} rupee note detected. "
+                                  f"Confidence {confidence:.0f} percent.")
+                st.markdown(f"""
+                <div style="background:#16213e; border:1px solid #0f3460; border-radius:8px;
+                            padding:0.7rem 1rem; margin:0.5rem 0; display:flex;
+                            align-items:center; gap:10px">
+                    <span style="font-size:1.3rem">🔊</span>
+                    <span style="color:#a8b2c1; font-size:0.88rem">
+                        <em>"{voice_text}"</em>
+                    </span>
+                </div>
+                """, unsafe_allow_html=True)
+                try:
+                    from gtts import gTTS
+                    import io
+                    tts = gTTS(text=voice_text, lang='en', slow=False)
+                    audio_buf = io.BytesIO()
+                    tts.write_to_fp(audio_buf)
+                    audio_buf.seek(0)
+                    st.audio(audio_buf, format='audio/mp3', autoplay=True)
+                except Exception:
+                    st.info(f"🔊 *{voice_text}*")
+
                 st.markdown("<br>", unsafe_allow_html=True)
 
                 # Show all class probabilities
@@ -456,8 +483,28 @@ with tab2:
 
                 # Voice output
                 st.markdown("<br>", unsafe_allow_html=True)
-                st.info(f'🔊 VisPay says: *"Payment of ₹{amount} to {contact_name.title()} successful. '
-                        f'Remaining balance: ₹{balance - amount:,.2f}"*')
+                pay_voice = (f"Payment of {amount} rupees to {contact_name} successful. "
+                             f"Remaining balance rupees {balance - amount:,.0f}.")
+                st.markdown(f"""
+                <div style="background:#16213e; border:1px solid #0f3460; border-radius:8px;
+                            padding:0.7rem 1rem; margin:0.5rem 0; display:flex;
+                            align-items:center; gap:10px">
+                    <span style="font-size:1.3rem">🔊</span>
+                    <span style="color:#a8b2c1; font-size:0.88rem">
+                        <em>"{pay_voice}"</em>
+                    </span>
+                </div>
+                """, unsafe_allow_html=True)
+                try:
+                    from gtts import gTTS
+                    import io
+                    tts = gTTS(text=pay_voice, lang='en', slow=False)
+                    audio_buf = io.BytesIO()
+                    tts.write_to_fp(audio_buf)
+                    audio_buf.seek(0)
+                    st.audio(audio_buf, format='audio/mp3', autoplay=True)
+                except Exception:
+                    st.info(f"🔊 *{pay_voice}*")
         else:
             st.markdown("""
             <div class="info-box" style="text-align:center; padding:2rem">
