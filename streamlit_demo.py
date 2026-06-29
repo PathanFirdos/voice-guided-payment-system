@@ -1,5 +1,4 @@
 import streamlit as st
-import tensorflow as tf
 import numpy as np
 import json
 import os
@@ -219,6 +218,7 @@ with tab1:
     @st.cache_resource
     def load_currency_model():
         try:
+            import tensorflow as tf
             model_path = os.path.join(
                 "src", "currency_recognition", "currency_recognition",
                 "models", "currency", "VisPay_currency_model.h5"
@@ -256,6 +256,7 @@ with tab1:
 
                 # Preprocess
                 img_resized = img.resize((224, 224))
+                import tensorflow as tf
                 arr = np.array(img_resized, dtype=np.float32) / 255.0
                 arr = np.expand_dims(arr, axis=0)
 
