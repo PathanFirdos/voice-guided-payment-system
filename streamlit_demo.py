@@ -294,13 +294,30 @@ with tab1:
                 # Show all class probabilities
                 st.markdown("**Prediction breakdown:**")
                 denominations = [class_map.get(str(i), f"Class {i}") for i in range(len(preds[0]))]
-                prob_data = {
-                    f"₹{d}" if d != "Background" else "Background": float(preds[0][i])
+                prob_list = [
+                    (f"₹{d}" if d != "Background" else "Background", float(preds[0][i]))
                     for i, d in enumerate(denominations)
-                }
-                # Sort by probability
-                prob_data = dict(sorted(prob_data.items(), key=lambda x: x[1], reverse=True))
-                st.bar_chart(prob_data, color="#e94560")
+                ]
+                # Sort by probability descending
+                prob_list.sort(key=lambda x: x[1], reverse=True)
+                # Draw bars using pure HTML — no pandas needed
+                bars_html = ""
+                for label, prob in prob_list:
+                    pct = prob * 100
+                    color = "#e94560" if label == f"₹{denomination}" else "#0f3460"
+                    bars_html += f"""
+                    <div style="margin:4px 0">
+                        <div style="display:flex; align-items:center; gap:8px">
+                            <span style="color:#a8b2c1; width:80px; font-size:0.82rem">{label}</span>
+                            <div style="flex:1; background:#1a2a3a; border-radius:4px; height:18px">
+                                <div style="width:{pct:.1f}%; background:{color}; 
+                                            height:18px; border-radius:4px;
+                                            transition:width 0.5s"></div>
+                            </div>
+                            <span style="color:#e2e8f0; font-size:0.82rem; width:45px">{pct:.1f}%</span>
+                        </div>
+                    </div>"""
+                st.markdown(bars_html, unsafe_allow_html=True)
 
         elif load_error:
             st.markdown(f"""
