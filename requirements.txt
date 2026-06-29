@@ -1,7 +1,4 @@
-tensorflow==2.12.0
-keras-facenet==0.3.2
-mtcnn==0.1.1
-opencv-python
-numpy
-scikit-learn
-pickle-mixin
+streamlit>=1.32.0
+numpy>=1.24.0
+Pillow>=10.0.0
+gtts>=2.3.2
